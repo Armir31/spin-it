@@ -1,4 +1,0 @@
-package al.spinit.spinit.dto;
-
-public class CustomerDto {
-}

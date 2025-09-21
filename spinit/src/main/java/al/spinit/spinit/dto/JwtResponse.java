@@ -1,4 +1,4 @@
 package al.spinit.spinit.dto;
 
-public class CreateCustomerDto {
+public class JwtResponse {
 }

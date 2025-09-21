@@ -1,4 +1,4 @@
 package al.spinit.spinit.controller;
 
-public class CustomerController {
+public class AuthController {
 }

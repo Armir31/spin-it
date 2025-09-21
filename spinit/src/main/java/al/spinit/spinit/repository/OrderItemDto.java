@@ -1,4 +1,4 @@
 package al.spinit.spinit.repository;
 
-public interface CustomerRepository {
+public interface OrderItemDto {
 }

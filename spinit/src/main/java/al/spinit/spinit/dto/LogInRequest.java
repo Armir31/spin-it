@@ -1,4 +1,4 @@
 package al.spinit.spinit.dto;
 
-public class CreateBusinessDto {
+public class LogInRequest {
 }
