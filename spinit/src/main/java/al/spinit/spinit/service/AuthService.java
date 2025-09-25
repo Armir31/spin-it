@@ -23,9 +23,7 @@ public class AuthService {
     @Autowired
     private JwtUtils jwtUtils;
 
-
-
-    public String customerRegistration(SignUpRequest signUpRequest) {
+    public String customerRegistration(SignUpRequest signUpRequest, Role role) {
         if (userRepository.findByUsername(signUpRequest.getUsername()).isPresent()) {
             throw new RuntimeException("Username is already taken!");
         }
@@ -37,7 +35,7 @@ public class AuthService {
 
         return userRepository.save(user).getUsername();
     }
-    public String adminRegistration(SignUpRequest signUpRequest) {
+    public String adminRegistration(SignUpRequest signUpRequest, Role role) {
         if (userRepository.findByUsername(signUpRequest.getUsername()).isPresent()) {
             throw new RuntimeException("Username is already taken!");
         }
@@ -50,7 +48,7 @@ public class AuthService {
         return userRepository.save(user).getUsername();
     }
     public JwtResponse loginUser(LogInRequest logInRequest) {
-        User user = userRepository.findByUsername(logInRequest.getUsername())
+        User user = userRepository.existsByUsername(logInRequest.getUsername())
                 .orElseThrow(() -> new RuntimeException("User not found!"));
 
         if (!passwordEncoder.matches(logInRequest.getPassword(), user.getPassword())) {

@@ -9,7 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SecurityConfig {
     @Bean
     public JwtUtils jwtUtils() {
-        return new JwtUtils(jwtUtils().getToken(), jwtUtils().getUsername(), jwtUtils().getRole());
+        return new JwtUtils();
     }
 
     @Bean

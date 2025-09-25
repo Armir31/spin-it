@@ -2,10 +2,6 @@ package al.spinit.spinit.config;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -13,9 +9,9 @@ import java.util.Date;
 @Component
 public class JwtUtils {
         private final String jwtSecret = "Brown(2016)";
-        private final long jwtExpirationMs = 86400000; // 24h
+        private final long jwtExpirationMs = 86400000;
 
-        public String generateToken(String username) {   // 👈 must be public
+        public String generateToken(String username) {
             return Jwts.builder()
                     .setSubject(username)
                     .setIssuedAt(new Date())
