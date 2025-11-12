@@ -7,12 +7,15 @@ import al.spinit.spinit.dto.SignUpRequest;
 import al.spinit.spinit.entity.Role;
 import al.spinit.spinit.entity.User;
 import al.spinit.spinit.repository.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AuthService {
+    public static final Logger log = LoggerFactory.getLogger(AuthService.class);
 
     @Autowired
     private UserRepository userRepository;

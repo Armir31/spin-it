@@ -4,9 +4,10 @@ import al.spinit.spinit.dto.CreateUserDto;
 import al.spinit.spinit.entity.User;
 import al.spinit.spinit.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
-import org.modelmapper.Condition;
 import org.modelmapper.Conditions;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ import java.util.List;
 
 @Service
 public class UserService {
+    public static final Logger log = LoggerFactory.getLogger(UserService.class);
 
     @Autowired
     private UserRepository userRepository;
@@ -28,7 +30,7 @@ public class UserService {
                 .orElseThrow(() -> new EntityNotFoundException
                         ("User with ID" + id + "not found!"));
     }
-    public void deleteById (Long id) {
+    public void delete(Long id) {
         userRepository.deleteById(id);
     }
     public User create (CreateUserDto createUserDto) {

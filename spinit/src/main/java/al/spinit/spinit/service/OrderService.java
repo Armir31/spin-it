@@ -13,6 +13,8 @@ import al.spinit.spinit.repository.ProductRepository;
 import al.spinit.spinit.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -27,6 +29,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class OrderService {
+    public static final Logger log = LoggerFactory.getLogger(OrderService.class);
 
     @Autowired
     private OrderRepository orderRepository;
@@ -49,7 +52,7 @@ public class OrderService {
     public void delete (Long id){
         orderRepository.deleteById(id);
     }
-    public Order findById (Long id){
+    public Order getById (Long id){
         return orderRepository.findById(id)
                 .orElseThrow(()->new EntityNotFoundException
                         ("Order with ID" + id + "not found!"));

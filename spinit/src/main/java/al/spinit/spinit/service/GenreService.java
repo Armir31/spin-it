@@ -5,6 +5,8 @@ import al.spinit.spinit.entity.Genre;
 import al.spinit.spinit.repository.GenreRepository;
 import org.modelmapper.Conditions;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,7 @@ import java.util.List;
 
 @Service
 public class GenreService {
+    public static final Logger log = LoggerFactory.getLogger(GenreService.class);
 
     @Autowired
     private GenreRepository genreRepository;
