@@ -43,6 +43,4 @@ public class UserService {
         modelMapper.map(createUserDto, existingUser);
         return userRepository.save(existingUser);
     }
-
-
 }

@@ -1,18 +1,21 @@
 package al.spinit.spinit.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -25,8 +28,9 @@ public class Product {
     private String name;
     @Column(name = "description", nullable = false)
     private String description;
-    @Column(name = "track_list", nullable = false)
-    private String trackList;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "product_type", nullable = false)
+    private ProductType type;
     @Column(name = "price", nullable = false)
     private Double price;
     @Column(name = "image", nullable = false)
@@ -34,6 +38,9 @@ public class Product {
     @ManyToMany
     @Column(name = "genre", nullable = false)
     private Set<Genre> genre = new HashSet<>();
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Column(name = "tracklist", nullable = false)
+    private List<Track> trackList;
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     private Long createdAt;

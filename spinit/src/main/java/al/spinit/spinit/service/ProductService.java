@@ -2,6 +2,7 @@ package al.spinit.spinit.service;
 
 import al.spinit.spinit.dto.CreateProductDto;
 import al.spinit.spinit.entity.Product;
+import al.spinit.spinit.entity.Track;
 import al.spinit.spinit.repository.ProductRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.Conditions;
@@ -34,6 +35,39 @@ public class ProductService {
         productRepository.deleteById(id);
     }
     public Product create (CreateProductDto createProductDto) {
+        Integer trackCount = createProductDto.getTrackList() == null ? 0 :
+                createProductDto.getTrackList().size();
+
+        switch (createProductDto.getType()) {
+            case SINGLE -> {
+                if (trackCount != 1) {
+                    throw new IllegalArgumentException
+                            ("Single product must have exactly 1 track");
+                }
+            }
+            case ALBUM -> {
+                if (trackCount < 2) {
+                    throw new IllegalArgumentException
+                            ("Album product must have at least 2 tracks");
+                }
+            }
+        }
+        Product pro = new Product();
+        pro.setName(createProductDto.getName());
+        pro.setPrice(createProductDto.getPrice());
+        pro.setGenre(createProductDto.getGenre());
+        pro.setImage(createProductDto.getImage());
+        pro.setDescription(createProductDto.getDescription());
+
+        for (CreateProductDto.TrackRequest tr : createProductDto.getTrackList()){
+            Track track = new Track();
+            track.setTrackNumber(tr.getTrackNumber());
+            track.setTitle(tr.getTitle());
+            track.setDuration(tr.getDuration());
+            track.setProduct(pro);
+
+            pro.getTrackList().add(track);
+        }
         Product product = modelMapper.map(createProductDto, Product.class);
         return productRepository.save(product);
     }

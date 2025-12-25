@@ -33,30 +33,34 @@ public class OrderController {
     private ModelMapper modelMapper = new ModelMapper();
 
     @PostMapping
-    public ResponseEntity<OrderDto> createOrder(@RequestBody CreateOrderDto createOrderDto){
+    public ResponseEntity<OrderDto> createOrder(@RequestBody CreateOrderDto createOrderDto) {
         log.info("Creating order...");
         Order order = orderService.create(createOrderDto);
         return new ResponseEntity<>(modelMapper.map(order, OrderDto.class), HttpStatus.CREATED);
     }
+
     @GetMapping
-    public ResponseEntity<List<Order>> getList(){
+    public ResponseEntity<List<Order>> getList() {
         log.info("Getting list of orders...");
         return ResponseEntity.ok(orderService.getList());
     }
+
     @GetMapping("/{id}")
-    public ResponseEntity<OrderDto> getById(@PathVariable Long id){
+    public ResponseEntity<OrderDto> getById(@PathVariable Long id) {
         Order order = orderService.getById(id);
         return new ResponseEntity<>(modelMapper.map(order, OrderDto.class), HttpStatus.OK);
     }
+
     @PatchMapping("/{id}")
     public ResponseEntity<OrderDto> updateOrder(@PathVariable Long id,
-                                                @RequestBody CreateOrderDto updateOrderDto){
+                                                @RequestBody CreateOrderDto updateOrderDto) {
         log.info("Updating order...");
         Order saved = orderService.update(id, updateOrderDto);
         return new ResponseEntity<>(modelMapper.map(saved, OrderDto.class), HttpStatus.OK);
     }
+
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteOrder(@PathVariable Long id){
+    public ResponseEntity<Void> deleteOrder(@PathVariable Long id) {
         log.warn("Deleting order with ID " + id);
         orderService.delete(id);
         return ResponseEntity.noContent().build();
