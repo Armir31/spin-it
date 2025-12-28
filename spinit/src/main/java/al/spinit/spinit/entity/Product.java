@@ -29,7 +29,7 @@ public class Product {
     @Column(name = "description", nullable = false)
     private String description;
     @Enumerated(EnumType.STRING)
-    @Column(name = "product_type", nullable = false)
+    @Column(name = "type", nullable = false)
     private ProductType type;
     @Column(name = "price", nullable = false)
     private Double price;
